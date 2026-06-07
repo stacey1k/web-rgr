@@ -12,7 +12,7 @@
     </div>
 </section>
 
-<section class="models-preview mb-3">
+<section class="models-section">
     <div class="container">
         <h2 class="section-title">Популярные модели</h2>
         <div class="models-grid">
@@ -35,7 +35,7 @@
     </div>
 </section>
 
-<section class="news-preview mb-3">
+<section class="news-section">
     <div class="container">
         <h2 class="section-title">Новости и акции</h2>
         <div class="news-grid">
@@ -53,14 +53,14 @@
             </div>
             @endforeach
         </div>
-        <div class="text-center mt-4">
+        <div style="text-align: center; margin-top: 30px;">
             <a href="{{ route('news') }}" class="btn btn--secondary">Все новости →</a>
         </div>
     </div>
 </section>
 @endsection
 
-@push('styles')
+<!-- @push('styles')
 <style>
     .hero {
         background: linear-gradient(135deg, var(--inkwell) 0%, var(--lunar-eclipse) 100%);
@@ -167,4 +167,4 @@
         margin-bottom: 30px;
     }
 </style>
-@endpush
+@endpush -->

@@ -8,7 +8,12 @@
     
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
-    @stack('styles')
+    <!-- @stack('styles') -->
+    <!-- <style>
+        .model-card { background: #1A1A1A !important; border: 2px solid red !important; }
+        .news-card { background: #2D1A1A !important; border: 2px solid orange !important; }
+        body { color: #F5F5F5 !important; }
+    </style> -->
 </head>
 <body>
     <div class="wrapper">

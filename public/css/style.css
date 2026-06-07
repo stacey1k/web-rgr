@@ -1,30 +1,44 @@
-/* ПЕРЕМЕННЫЕ */
+/* ========================================
+   ПОДКЛЮЧЕНИЕ ШРИФТОВ
+   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+/* ========================================
+   ПЕРЕМЕННЫЕ (цвета, тени, шрифты)
+   ======================================== */
 :root {
-    /* Ваши цвета */
-    --inkwell: #2C3639;
-    --lunar-eclipse: #3F4E4F;
-    --creme-brulee: #A27B5B;
-    --au-lait: #DCD7C9;
+    /* Основные цвета */
+    --bg-dark: #0A0A0A;
+    --bg-card-dark: #1A1A1A;
+    --bg-card-warm: #2D1A1A;
     
-    /* Дополнительные цвета */
-    --white: #ffffff;
-    --black: #1a1a1a;
-    --gray-light: #f5f5f5;
-    --error: #dc2626;
-    --success: #16a34a;
+    /* Акценты */
+    --accent-red: #D32F2F;
+    --accent-red-hover: #FF5252;
+    --accent-orange: #E67E22;
     
-    /* Шрифты */
-    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Текст */
+    --text-primary: #F5F5F5;
+    --text-secondary: #CCCCCC;
+    --text-dim: #888888;
+    --white: #FFFFFF;
     
     /* Тени */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
     
     /* Анимации */
     --transition: all 0.3s ease;
+    
+    /* Шрифты */
+    --font-main: 'Inter', sans-serif;
+    --font-heading: 'Playfair Display', serif;
+    --font-hero: 'Montserrat', sans-serif;
 }
 
-/* БАЗОВЫЕ СТИЛИ */
+/* ========================================
+   БАЗОВЫЕ СБРОСЫ
+   ======================================== */
 * {
     margin: 0;
     padding: 0;
@@ -33,31 +47,36 @@
 
 body {
     font-family: var(--font-main);
-    background-color: var(--au-lait);
-    color: var(--inkwell);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
     line-height: 1.5;
     min-height: 100vh;
 }
 
+/* Контейнер — ТОЛЬКО ширина и центрирование */
 .container {
     width: 1024px;
     margin: 0 auto;
 }
 
-/* ШАПКА */
+/* ========================================
+   ШАПКА (HEADER)
+   ======================================== */
 .header {
-    background-color: var(--inkwell);
-    position: sticky;
+    background-color: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
     top: 0;
     z-index: 100;
-    box-shadow: var(--shadow-md);
+    transition: padding 0.3s ease;
+    padding: 16px 0;
 }
 
 .header__inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
 }
 
 .header__left {
@@ -74,7 +93,9 @@ body {
     flex-shrink: 0;
 }
 
-/* Логотип */
+/* ========================================
+   ЛОГОТИП
+   ======================================== */
 .logo a {
     display: flex;
     align-items: center;
@@ -90,47 +111,69 @@ body {
 .logo__text {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--creme-brulee);
-    letter-spacing: 1px;
+    color: var(--white);
+    letter-spacing: 2px;
 }
 
-/* Навигация */
+/* ========================================
+   МЕНЮ (NAVIGATION)
+   ======================================== */
 .nav__list {
     display: flex;
-    gap: 24px;
+    gap: 28px;
     list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 .nav__link {
     text-decoration: none;
-    color: var(--au-lait);
+    color: var(--text-primary);
     font-weight: 500;
     transition: var(--transition);
-    padding: 8px 0;
-    display: inline-block;
-    font-size: 0.95rem;
+    padding: 6px 0;
+    font-size: 0.9rem;
     white-space: nowrap;
+    position: relative;
+}
+
+.nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-red);
+    transition: width 0.3s ease;
+}
+
+.nav__link:hover::after {
+    width: 100%;
 }
 
 .nav__link:hover {
-    color: var(--creme-brulee);
+    color: var(--white);
 }
 
+/* Кнопка "Тест-драйв" в меню */
 .nav__link--highlight {
-    background-color: var(--creme-brulee);
-    color: var(--inkwell);
+    background-color: var(--accent-red);
+    color: var(--white);
     padding: 8px 20px;
     border-radius: 30px;
 }
 
-.nav__link--highlight:hover {
-    background-color: var(--au-lait);
-    color: var(--inkwell);
+.nav__link--highlight::after {
+    display: none;
 }
 
-/* Выпадающее меню */
+.nav__link--highlight:hover {
+    background-color: var(--accent-red-hover);
+    transform: scale(1.05);
+}
+
+/* ========================================
+   ВЫПАДАЮЩЕЕ ПОДМЕНЮ
+   ======================================== */
 .nav__item--dropdown {
     position: relative;
 }
@@ -139,10 +182,10 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: var(--lunar-eclipse);
-    min-width: 220px;
+    background-color: var(--bg-card-dark);
+    min-width: 200px;
     border-radius: 8px;
-    padding: 12px 0;
+    padding: 10px 0;
     list-style: none;
     opacity: 0;
     visibility: hidden;
@@ -162,24 +205,267 @@ body {
     display: block;
     padding: 8px 20px;
     text-decoration: none;
-    color: var(--au-lait);
+    color: var(--text-secondary);
     transition: var(--transition);
 }
 
 .subnav__link:hover {
-    background-color: var(--inkwell);
-    color: var(--creme-brulee);
+    background-color: var(--accent-red);
+    color: var(--white);
 }
 
-/* ОСНОВНОЙ КОНТЕНТ */
+/* ========================================
+   ОСНОВНОЙ КОНТЕНТ
+   ======================================== */
 .main {
     min-height: 70vh;
+    padding-top: 80px; /* чтобы контент не уходил под фиксированную шапку */
 }
 
-/* ПОДВАЛ */
+/* ========================================
+   HERO СЕКЦИЯ (с анимацией)
+   ======================================== */
+.hero {
+    background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+    padding: 80px 0 80px;
+    text-align: center;
+    margin-bottom: 60px;
+    border-bottom: 1px solid rgba(211, 47, 47, 0.3);
+}
+
+.hero__title {
+    font-family: var(--font-hero);
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.hero__subtitle {
+    font-family: var(--font-hero);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.hero .btn {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+/* ========================================
+   АНИМАЦИИ
+   ======================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Анимация для карточек */
+.model-card, .news-card {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.model-card:nth-child(1) { animation-delay: 0.1s; }
+.model-card:nth-child(2) { animation-delay: 0.3s; }
+.model-card:nth-child(3) { animation-delay: 0.5s; }
+
+.news-card:nth-child(1) { animation-delay: 0.1s; }
+.news-card:nth-child(2) { animation-delay: 0.3s; }
+.news-card:nth-child(3) { animation-delay: 0.5s; }
+
+/* ========================================
+   СЕКЦИИ
+   ======================================== */
+.models-section, .news-section {
+    margin-bottom: 80px;
+}
+
+/* Заголовки секций с красной полосой */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--accent-red);
+}
+
+/* ========================================
+   КАРТОЧКИ МОДЕЛЕЙ (тёмный фон)
+   ======================================== */
+.models-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.model-card {
+    background: var(--bg-card-dark);
+    border: 1px solid #333333;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.model-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--accent-red);
+    transition: width 0.3s ease;
+}
+
+.model-card:hover::after {
+    width: 100%;
+}
+
+.model-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
+.model-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.model-card h3 {
+    padding: 15px 15px 5px;
+    color: var(--white);
+    font-weight: 600;
+}
+
+.model-card p {
+    padding: 0 15px 15px;
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   КАРТОЧКИ НОВОСТЕЙ (тёплый акцент)
+   ======================================== */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.news-card {
+    background: var(--bg-card-warm);
+    border: 1px solid var(--accent-red);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.news-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--accent-red);
+    transition: width 0.3s ease;
+}
+
+.news-card:hover::after {
+    width: 100%;
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+}
+
+.news-card .news-date {
+    display: block;
+    padding: 15px 15px 5px;
+    font-size: 0.8rem;
+    color: var(--accent-red);
+    font-weight: 500;
+}
+
+.news-card h3 {
+    padding: 0 15px 15px;
+    color: var(--white);
+}
+
+/* ========================================
+   КНОПКИ
+   ======================================== */
+.btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn--primary {
+    background-color: var(--accent-red);
+    color: var(--white);
+}
+
+.btn--primary:hover {
+    background-color: var(--accent-red-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(211, 47, 47, 0.4);
+}
+
+.btn--secondary {
+    background-color: transparent;
+    color: var(--accent-red);
+    border: 2px solid var(--accent-red);
+}
+
+.btn--secondary:hover {
+    background-color: var(--accent-red);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   ПОДВАЛ (FOOTER)
+   ======================================== */
 .footer {
-    background-color: var(--inkwell);
-    color: var(--au-lait);
+    background-color: var(--bg-dark);
+    border-top: 1px solid rgba(211, 47, 47, 0.3);
     padding: 40px 0 20px;
     margin-top: 60px;
 }
@@ -197,20 +483,16 @@ body {
 }
 
 .footer__nav a {
-    color: var(--au-lait);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
     transition: var(--transition);
 }
 
 .footer__nav a:hover {
-    color: var(--creme-brulee);
+    color: var(--accent-red);
 }
 
-/* УТИЛИТЫ */
-.section-title {
-    font-size: 2rem;
-    color: var(--inkwell);
-    margin-bottom: 30px;
-    text-align: center;
+.footer__copyright {
+    color: var(--text-dim);
+    font-size: 0.85rem;
 }
