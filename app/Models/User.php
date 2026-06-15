@@ -14,19 +14,45 @@ use Illuminate\Notifications\Notifiable;
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'phone',
+        'is_admin',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
+    }
+
+    // Проверка, является ли пользователь администратором
+    public function isAdmin()
+    {
+        return $this->is_admin === true;
+    }
+    
+    // Связь с заявками на тест-драйв
+    public function testDriveRequests()
+    {
+        return $this->hasMany(TestDriveRequest::class);
+    }
+    
+    // Связь с заявками на покупку
+    public function purchaseRequests()
+    {
+        return $this->hasMany(PurchaseRequest::class);
     }
 }

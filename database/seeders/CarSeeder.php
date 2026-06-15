@@ -1,0 +1,153 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\Car;
+
+class CarSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // Седаны (category_id = 1)
+        $cars = [
+            // Sedans
+            [
+                'model' => 'A6',
+                'category_id' => 1,
+                'short_description_ru' => 'Бизнес-седан премиум-класса',
+                'short_description_en' => 'Premium business sedan',
+                'description_ru' => 'Audi A6 — это воплощение элегантности, комфорта и передовых технологий. Просторный салон, мощный двигатель и интеллектуальная система полного привода делают каждую поездку незабываемой.',
+                'description_en' => 'The Audi A6 is the epitome of elegance, comfort and advanced technology. Spacious interior, powerful engine and intelligent all-wheel drive make every journey unforgettable.',
+                'engine' => '2.0 TFSI',
+                'horsepower' => 249,
+                'acceleration' => 6.8,
+                'fuel_consumption' => 7.5,
+                'transmission' => '7-ступенчатый S tronic',
+                'drive' => 'quattro',
+                'price' => 4800000,
+                'main_image' => 'a6.jpg',
+            ],
+            [
+                'model' => 'A8',
+                'category_id' => 1,
+                'short_description_ru' => 'Флагманский седан с максимальным комфортом',
+                'short_description_en' => 'Flagship sedan with maximum comfort',
+                'description_ru' => 'Audi A8 — вершина инженерной мысли. Роскошный интерьер, инновационные системы помощи водителю и мощный двигатель V6.',
+                'description_en' => 'The Audi A8 is the pinnacle of engineering. Luxurious interior, innovative driver assistance systems and a powerful V6 engine.',
+                'engine' => '3.0 TFSI',
+                'horsepower' => 340,
+                'acceleration' => 5.6,
+                'fuel_consumption' => 8.5,
+                'transmission' => '8-ступенчатый tiptronic',
+                'drive' => 'quattro',
+                'price' => 8900000,
+                'main_image' => 'a8.jpg',
+            ],
+            // Coupe
+            [
+                'model' => 'A5 Coupe',
+                'category_id' => 2,
+                'short_description_ru' => 'Спортивное купе с харизмой',
+                'short_description_en' => 'Sports coupe with charisma',
+                'description_ru' => 'Audi A5 Coupe привлекает внимание своим дизайном. Динамичный силуэт, мощный двигатель и превосходная управляемость.',
+                'description_en' => 'The Audi A5 Coupe attracts attention with its design. Dynamic silhouette, powerful engine and excellent handling.',
+                'engine' => '2.0 TFSI',
+                'horsepower' => 204,
+                'acceleration' => 7.0,
+                'fuel_consumption' => 6.8,
+                'transmission' => '7-ступенчатый S tronic',
+                'drive' => 'quattro',
+                'price' => 4100000,
+                'main_image' => 'a5_coupe.jpg',
+            ],
+            // SUVs
+            [
+                'model' => 'Q5',
+                'category_id' => 3,
+                'short_description_ru' => 'Популярный кроссовер для семьи и путешествий',
+                'short_description_en' => 'Popular crossover for family and travel',
+                'description_ru' => 'Audi Q5 сочетает в себе практичность, комфорт и динамику. Просторный салон, современные технологии и экономичный двигатель.',
+                'description_en' => 'The Audi Q5 combines practicality, comfort and dynamics. Spacious interior, modern technology and economical engine.',
+                'engine' => '2.0 TFSI',
+                'horsepower' => 249,
+                'acceleration' => 6.9,
+                'fuel_consumption' => 7.8,
+                'transmission' => '7-ступенчатый S tronic',
+                'drive' => 'quattro',
+                'price' => 5300000,
+                'main_image' => 'q5.jpg',
+            ],
+            [
+                'model' => 'Q7',
+                'category_id' => 3,
+                'short_description_ru' => 'Большой внедорожник для больших путешествий',
+                'short_description_en' => 'Large SUV for big adventures',
+                'description_ru' => 'Audi Q7 — это мощный и просторный внедорожник с 7-местным салоном. Идеален для больших семей и дальних путешествий.',
+                'description_en' => 'The Audi Q7 is a powerful and spacious SUV with a 7-seat interior. Ideal for large families and long journeys.',
+                'engine' => '3.0 TDI',
+                'horsepower' => 286,
+                'acceleration' => 6.3,
+                'fuel_consumption' => 8.9,
+                'transmission' => '8-ступенчатый tiptronic',
+                'drive' => 'quattro',
+                'price' => 7200000,
+                'main_image' => 'q7.jpg',
+            ],
+            // Sport models
+            [
+                'model' => 'R8',
+                'category_id' => 4,
+                'short_description_ru' => 'Суперкар с двигателем V10',
+                'short_description_en' => 'V10 supercar',
+                'description_ru' => 'Audi R8 — это настоящий суперкар с атмосферным двигателем V10 мощностью 620 л.с. Разгон до 100 км/ч всего за 3.1 секунды.',
+                'description_en' => 'The Audi R8 is a true supercar with a naturally aspirated V10 engine producing 620 hp. 0-100 km/h in just 3.1 seconds.',
+                'engine' => '5.2 FSI',
+                'horsepower' => 620,
+                'acceleration' => 3.1,
+                'fuel_consumption' => 13.5,
+                'transmission' => '7-ступенчатый S tronic',
+                'drive' => 'quattro',
+                'price' => 18500000,
+                'main_image' => 'r8.jpg',
+            ],
+            [
+                'model' => 'RS7',
+                'category_id' => 4,
+                'short_description_ru' => 'Спортбек с характером',
+                'short_description_en' => 'Sportback with attitude',
+                'description_ru' => 'Audi RS7 — это сочетание элегантности и мощи. V8 с двойным турбонаддувом выдает 600 л.с.',
+                'description_en' => 'The Audi RS7 is a combination of elegance and power. Twin-turbo V8 produces 600 hp.',
+                'engine' => '4.0 TFSI',
+                'horsepower' => 600,
+                'acceleration' => 3.4,
+                'fuel_consumption' => 11.8,
+                'transmission' => '8-ступенчатый tiptronic',
+                'drive' => 'quattro',
+                'price' => 12400000,
+                'main_image' => 'rs7.jpg',
+            ],
+            // Electric
+            [
+                'model' => 'Q4 e-tron',
+                'category_id' => 5,
+                'short_description_ru' => 'Электрический компактный кроссовер',
+                'short_description_en' => 'Electric compact crossover',
+                'description_ru' => 'Audi Q4 e-tron — это электрический кроссовер с запасом хода до 520 км. Современный дизайн и экологичность.',
+                'description_en' => 'The Audi Q4 e-tron is an electric crossover with a range of up to 520 km. Modern design and environmental friendliness.',
+                'engine' => 'Электрический',
+                'horsepower' => 299,
+                'acceleration' => 6.2,
+                'fuel_consumption' => 0,
+                'transmission' => 'Одноступенчатая',
+                'drive' => 'quattro',
+                'price' => 5600000,
+                'main_image' => 'q4_etron.jpg',
+            ],
+        ];
+
+        foreach ($cars as $car) {
+            Car::create($car);
+        }
+    }
+}

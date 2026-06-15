@@ -45,22 +45,28 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-family: var(--font-main);
     background-color: var(--bg-dark);
     color: var(--text-primary);
     line-height: 1.5;
     min-height: 100vh;
+    height: 100%;
 }
 
-/* Контейнер — ТОЛЬКО ширина и центрирование */
 .container {
     width: 1024px;
     margin: 0 auto;
+    max-width: 100%;
+    padding: 0 15px;
 }
 
 /* ========================================
-   ШАПКА (HEADER)
+   ШАПКА
    ======================================== */
 .header {
     background-color: rgba(10, 10, 10, 0.95);
@@ -116,7 +122,7 @@ body {
 }
 
 /* ========================================
-   МЕНЮ (NAVIGATION)
+   МЕНЮ
    ======================================== */
 .nav__list {
     display: flex;
@@ -219,18 +225,16 @@ body {
    ======================================== */
 .main {
     min-height: 70vh;
-    padding-top: 80px; /* чтобы контент не уходил под фиксированную шапку */
+    padding-top: 80px;
 }
 
 /* ========================================
    HERO СЕКЦИЯ (с анимацией)
    ======================================== */
-.hero {
-    background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
-    padding: 80px 0 80px;
-    text-align: center;
-    margin-bottom: 60px;
-    border-bottom: 1px solid rgba(211, 47, 47, 0.3);
+.hero__content {
+    position: relative;
+    z-index: 2;
+    transform: translateY(-20px);
 }
 
 .hero__title {
@@ -260,12 +264,81 @@ body {
 }
 
 /* ========================================
+   СЛАЙД-ШОУ В HERO-СЕКЦИИ
+   ======================================== */
+.hero {
+    position: relative;
+    padding: 205px 0 100px;
+    text-align: center;
+    color: var(--white);
+    overflow: hidden;
+    isolation: isolate;
+    margin-bottom: 60px;
+    border-bottom: 1px solid rgba(211, 47, 47, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.hero.loaded {
+    opacity: 1;
+}
+
+/* Слайдер (фоновый) */
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+}
+
+.hero-slider__track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slider__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.hero-slider__img.active {
+    opacity: 1;
+}
+
+/* Затемнение поверх слайдов */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.5) 100%);
+    z-index: -1;
+}
+
+/* Контент поверх слайдера */
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ========================================
    АНИМАЦИИ
    ======================================== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(33px);
     }
     to {
         opacity: 1;
@@ -288,15 +361,123 @@ body {
 .news-card:nth-child(3) { animation-delay: 0.5s; }
 
 /* ========================================
+   СЛОГАН-БЛОК
+   ======================================== */
+.slogan-section {
+    padding: 50px 0 40px;
+    margin-top: 60px;
+    margin-bottom: 120px;
+    position: relative;
+}
+
+.slogan-decoration {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-48%);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+    opacity: 0;
+    animation: fadeInWidth 0.8s ease-out forwards;
+}
+
+.slogan-decoration--top {
+    top: 0;
+    width: 0;
+    animation: fadeInWidth 0.6s ease-out 0.2s forwards;
+}
+
+.slogan-decoration--bottom {
+    bottom: 0;
+    width: 0;
+    animation: fadeInWidth 0.6s ease-out 0.4s forwards;
+}
+
+@keyframes fadeInWidth {
+    0% {
+        opacity: 0;
+        width: 0;
+    }
+    100% {
+        opacity: 1;
+        width: 120px;
+    }
+}
+
+.slogan {
+    text-align: center;
+}
+
+.slogan__main {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #FFFFFF 0%, #CCCCCC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.1s;
+}
+
+.slogan__sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 4px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.3s;
+}
+
+/* Разделитель с названием бренда */
+.slogan__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+.slogan__divider-line {
+    width: 60px;
+    height: 1px;
+    background: rgba(211, 47, 47, 0.5);
+}
+
+.slogan__divider-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--accent-red);
+    text-transform: uppercase;
+}
+
+/* ========================================
    СЕКЦИИ
    ======================================== */
-.models-section, .news-section {
+.models-section {
+    overflow: hidden;
     margin-bottom: 80px;
+}
+
+.news-section {
+    margin-top: 120px;
+    margin-bottom: 160px;
 }
 
 /* Заголовки секций с красной полосой */
 .section-title {
-    font-family: var(--font-heading);
+    font-family: 'Montserrat', sans-serif;
     font-size: 2rem;
     font-weight: 700;
     color: var(--white);
@@ -304,6 +485,11 @@ body {
     text-align: center;
     position: relative;
     padding-bottom: 15px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.15s;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .section-title::after {
@@ -318,62 +504,140 @@ body {
 }
 
 /* ========================================
-   КАРТОЧКИ МОДЕЛЕЙ (тёмный фон)
+   КАРУСЕЛЬ ДЛЯ МОДЕЛЕЙ
    ======================================== */
-.models-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+.models-carousel-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 50px;
 }
 
+.models-carousel {
+    overflow: hidden;
+}
+
+.models-carousel__track {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    padding: 10px 0 30px;
+    cursor: grab;
+}
+
+.models-carousel__track:active {
+    cursor: grabbing;
+}
+
+.models-carousel__track::-webkit-scrollbar {
+    height: 4px;
+}
+
+.models-carousel__track::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.models-carousel__track::-webkit-scrollbar-thumb {
+    background: var(--accent-red);
+    border-radius: 4px;
+}
+
+/* Карточки */
 .model-card {
-    background: var(--bg-card-dark);
-    border: 1px solid #333333;
+    flex: 0 0 360px;
+    position: relative;
     border-radius: 12px;
     overflow: hidden;
+    background: var(--bg-card-dark);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-}
-
-.model-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background: var(--accent-red);
-    transition: width 0.3s ease;
-}
-
-.model-card:hover::after {
-    width: 100%;
-}
-
-.model-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
 }
 
 .model-card img {
     width: 100%;
-    height: 200px;
+    height: 300px;
     object-fit: cover;
+    object-position: center 25%;
+    display: block;
 }
 
-.model-card h3 {
-    padding: 15px 15px 5px;
+.model-card__content {
+    padding: 20px 15px;
+    text-align: center;
+    background: var(--bg-card-dark);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.model-card__content h3 {
     color: var(--white);
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
 }
 
-.model-card p {
-    padding: 0 15px 15px;
+.model-card__content p {
     color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+.model-card__content p:first-of-type {
+    flex: 1;
+}
+
+.model-card__price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-red);
+    /* margin-top: 10px; */
+    margin-top: 0;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Стрелки */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(211, 47, 47, 0.8);
+    backdrop-filter: blur(4px);
+    border: none;
+    color: var(--white);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-arrow:hover {
+    background: var(--accent-red);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow--prev {
+    left: -20px;
+}
+
+.carousel-arrow--next {
+    right: -20px;
 }
 
 /* ========================================
-   КАРТОЧКИ НОВОСТЕЙ (тёплый акцент)
+   КАРТОЧКИ НОВОСТЕЙ
    ======================================== */
 .news-grid {
     display: grid;
@@ -412,15 +676,29 @@ body {
 
 .news-card .news-date {
     display: block;
-    padding: 15px 15px 5px;
+    padding: 20px 20px 5px;
     font-size: 0.8rem;
     color: var(--accent-red);
     font-weight: 500;
 }
 
 .news-card h3 {
-    padding: 0 15px 15px;
+    padding: 0 20px 10px;
     color: var(--white);
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.news-card p {
+    padding: 0 20px 15px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.news-card .btn--secondary {
+    margin: 0 20px 25px;
+    display: inline-block;
 }
 
 /* ========================================
@@ -438,12 +716,17 @@ body {
 }
 
 .btn--primary {
-    background-color: var(--accent-red);
-    color: var(--white);
+    background-color: rgba(104, 36, 36, 0.15);
+    backdrop-filter: blur(8px);
+    color: var(--accent-red);
+    border: 2px solid rgba(211, 47, 47, 0.5);
+    transition: all 0.25s ease;
 }
 
 .btn--primary:hover {
-    background-color: var(--accent-red-hover);
+    background-color: var(--accent-red);
+    color: var(--white);
+    border: 2px solid var(--accent-red);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(211, 47, 47, 0.4);
 }
@@ -452,12 +735,51 @@ body {
     background-color: transparent;
     color: var(--accent-red);
     border: 2px solid var(--accent-red);
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: 0.75s;
 }
 
 .btn--secondary:hover {
     background-color: var(--accent-red);
     color: var(--white);
     transform: translateY(-2px);
+}
+
+/* ========================================
+   ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКА
+   ======================================== */
+.header__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.language-switcher a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.language-switcher a.active {
+    color: var(--accent-red);
+    font-weight: 700;
+}
+
+.language-switcher a:hover:not(.active) {
+    color: var(--white);
+}
+
+.language-switcher span {
+    color: var(--text-dim);
 }
 
 /* ========================================
@@ -495,4 +817,154 @@ body {
 .footer__copyright {
     color: var(--text-dim);
     font-size: 0.85rem;
+}
+
+/* ========================================
+   ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ БАЗЫ ДАННЫХ
+   ======================================== */
+
+/* Кнопка "Подробнее" на карточке */
+.btn--small {
+    display: inline-block;
+    padding: 6px 16px;
+    font-size: 0.75rem;
+    border-radius: 20px;
+    background-color: var(--accent-red);
+    color: var(--white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn--small:hover {
+    background-color: var(--accent-red-hover);
+    transform: translateY(-2px);
+}
+
+/* Сетка моделей (для страницы категории) */
+.models-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+    position: relative;
+}
+
+/* Описание категории */
+.category-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Пагинация */
+.pagination-wrapper {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    list-style: none;
+}
+
+.pagination li a,
+.pagination li span {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: var(--bg-card-dark);
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.pagination li.active span {
+    background-color: var(--accent-red);
+    color: var(--white);
+}
+
+.pagination li a:hover {
+    background-color: var(--accent-red);
+    color: var(--white);
+}
+
+/* Страница новости */
+.news-article {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.news-meta {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--accent-red);
+    font-size: 0.9rem;
+}
+
+.news-image {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.news-image img {
+    max-width: 100%;
+    border-radius: 12px;
+}
+
+.news-content {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+
+.news-content p {
+    margin-bottom: 20px;
+}
+
+.news-back {
+    margin-top: 50px;
+    text-align: center;
+}
+
+/* Карточка новости с изображением */
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news-card .btn--secondary {
+    margin: 0 15px 20px;
+    display: inline-block;
+}
+
+/* Контакты в подвале */
+.footer__col h4 {
+    color: var(--white);
+    margin-bottom: 15px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.footer__col p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+/* Пустое состояние */
+.text-center {
+    text-align: center;
+}
+
+.text-center p {
+    padding: 40px;
+    color: var(--text-dim);
+    font-size: 1.1rem;
 }

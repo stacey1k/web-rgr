@@ -5,14 +5,44 @@
 
 @section('content')
 <section class="hero">
+    <div class="hero-slider" id="heroSlider">
+        <div class="hero-slider__track">
+            <img class="hero-slider__img active" src="{{ asset('images/slider/Audi_A6_headlight.jpg') }}" alt="Audi A6 headlight">
+            <img class="hero-slider__img" src="{{ asset('images/slider/Rs3_headlights_in_the_dark.jpg') }}" alt="Audi RS3 headlights">
+            <img class="hero-slider__img" src="{{ asset('images/slider/speedometer.jpg') }}" alt="Audi speedometer">
+            <img class="hero-slider__img" src="{{ asset('images/slider/car_wheel.jpg') }}" alt="Audi wheel">
+            <img class="hero-slider__img" src="{{ asset('images/slider/Audi_R8_red_dark.jpg') }}" alt="Audi R8 red">
+        </div>
+    </div>
+
     <div class="container">
-        <h1 class="hero__title">Audi Drive</h1>
-        <p class="hero__subtitle">Официальный дилер Audi в Москве</p>
-        <a href="{{ route('testdrive.create') }}" class="btn btn--primary">Записаться на тест-драйв</a>
+        <div class="hero__content">
+            <h1 class="hero__title">{{ __('messages.hero_title') }}</h1>
+            <p class="hero__subtitle">{{ __('messages.hero_subtitle') }}</p>
+            <a href="{{ route('testdrive.create') }}" class="btn btn--primary">{{ __('messages.testdrive_signUp') }}</a>
+        </div>
     </div>
 </section>
 
-<section class="models-section">
+<section class="slogan-section">
+    <div class="slogan-decoration slogan-decoration--top"></div>
+    <div class="container">
+        <div class="slogan">
+            <div class="slogan__inner">
+                <h2 class="slogan__main">Vorsprung durch Technik</h2>
+                <p class="slogan__sub">Advancement through Technology</p>
+                <div class="slogan__divider">
+                    <span class="slogan__divider-line"></span>
+                    <span class="slogan__divider-brand">Audi Drive</span>
+                    <span class="slogan__divider-line"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="slogan-decoration slogan-decoration--bottom"></div>
+</section>
+
+<!-- <section class="models-section">
     <div class="container">
         <h2 class="section-title">Популярные модели</h2>
         <div class="models-grid">
@@ -33,17 +63,44 @@
             </div>
         </div>
     </div>
+</section> -->
+
+<section class="models-section">
+    <div class="container">
+        <h2 class="section-title">{{ __('messages.popular_models') }}</h2>
+    </div>
+    
+    <div class="models-carousel-wrapper">
+        <button class="carousel-arrow carousel-arrow--prev" id="modelsPrevBtn">‹</button>
+        
+        <div class="models-carousel" id="modelsCarousel">
+            <div class="models-carousel__track" id="modelsTrack">
+                @foreach($popularCars as $car)
+                <div class="model-card">
+                    <img src="{{ asset('images/car_models/' . $car->main_image) }}" alt="Audi {{ $car->model }}">
+                    <div class="model-card__overlay">
+                        <h3>Audi {{ $car->model }}</h3>
+                        <p>{{ $car->short_description }}</p>
+                        <p class="model-card__price">{{ $car->formatted_price }}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        
+        <button class="carousel-arrow carousel-arrow--next" id="modelsNextBtn">›</button>
+    </div>
 </section>
 
 <section class="news-section">
     <div class="container">
-        <h2 class="section-title">Новости и акции</h2>
-        <div class="news-grid">
+        <h2 class="section-title">{{ __('messages.news_and_promotions') }}</h2>
+        <!-- <div class="news-grid">
             @php
                 $sampleNews = [
-                    ['title' => 'Специальные предложения на Audi Q5', 'date' => '15.03.2025'],
-                    ['title' => 'Новый Audi A6 e-tron уже в салоне', 'date' => '10.03.2025'],
-                    ['title' => 'Тест-драйв выходного дня', 'date' => '05.03.2025'],
+                    ['title' => __('messages.special_offers_q5'), 'date' => '15.03.2025'],
+                    ['title' => __('messages.new_a6_etron'), 'date' => '10.03.2025'],
+                    ['title' => __('messages.testdrive_weekend'), 'date' => '05.03.2025'],
                 ];
             @endphp
             @foreach($sampleNews as $item)
@@ -54,117 +111,98 @@
             @endforeach
         </div>
         <div style="text-align: center; margin-top: 30px;">
-            <a href="{{ route('news') }}" class="btn btn--secondary">Все новости →</a>
+            <a href="{{ route('news') }}" class="btn btn--secondary">{{ __('messages.all_news') }} →</a>
+        </div>
+    </div> -->
+
+        <div class="news-grid">
+            @foreach($latestNews as $item)
+            <div class="news-card">
+                @if($item->image)
+                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}">
+                @endif
+                <span class="news-date">{{ $item->published_at->format('d.m.Y') }}</span>
+                <h3>{{ $item->title }}</h3>
+                <p>{{ Str::limit($item->content, 100) }}</p>
+                <a href="{{ route('news.show', ['locale' => app()->getLocale(), 'slug' => $item->slug]) }}" class="btn btn--secondary">{{ __('messages.read_more') }} →</a>
+            </div>
+            @endforeach
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{{ route('news', ['locale' => app()->getLocale()]) }}" class="btn btn--secondary">{{ __('messages.all_news') }} →</a>
         </div>
     </div>
 </section>
 @endsection
 
-<!-- @push('styles')
-<style>
-    .hero {
-        background: linear-gradient(135deg, var(--inkwell) 0%, var(--lunar-eclipse) 100%);
-        padding: 60px 0;
-        text-align: center;
-        color: var(--au-lait);
-        border-radius: 0 0 30px 30px;
-        margin-bottom: 40px;
-    }
-    
-    .hero__title {
-        font-size: 3rem;
-        margin-bottom: 20px;
-    }
-    
-    .hero__subtitle {
-        font-size: 1.2rem;
-        margin-bottom: 30px;
-        opacity: 0.9;
-    }
-    
-    .btn {
-        display: inline-block;
-        padding: 12px 30px;
-        border-radius: 40px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: var(--transition);
-        cursor: pointer;
-        border: none;
-    }
-    
-    .btn--primary {
-        background-color: var(--creme-brulee);
-        color: var(--inkwell);
-    }
-    
-    .btn--primary:hover {
-        background-color: var(--au-lait);
-        transform: translateY(-2px);
-    }
-    
-    .btn--secondary {
-        background-color: transparent;
-        color: var(--creme-brulee);
-        border: 2px solid var(--creme-brulee);
-    }
-    
-    .btn--secondary:hover {
-        background-color: var(--creme-brulee);
-        color: var(--inkwell);
-    }
-    
-    .models-grid, .news-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-        margin-top: 30px;
-    }
-    
-    .model-card, .news-card {
-        background: var(--white);
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: var(--shadow-sm);
-        transition: var(--transition);
-    }
-    
-    .model-card:hover, .news-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-md);
-    }
-    
-    .model-card__img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
-    
-    .model-card h3, .news-card h3 {
-        padding: 15px 15px 5px;
-        color: var(--inkwell);
-    }
-    
-    .model-card p, .news-date {
-        padding: 0 15px 15px;
-        color: var(--lunar-eclipse);
-    }
-    
-    .news-date {
-        display: block;
-        font-size: 0.8rem;
-    }
-    
-    .text-center {
-        text-align: center;
-    }
-    
-    .mt-4 {
-        margin-top: 30px;
-    }
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.hero-slider__img');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
 
-    .mb-3 {
-        margin-bottom: 30px;
-    }
-</style>
-@endpush -->
+        if (totalSlides === 0) return;
+
+        // Предзагружаем все изображения
+        function preloadImages() {
+            slides.forEach(slide => {
+                const img = new Image();
+                img.src = slide.src;
+            });
+        }
+        preloadImages();
+
+        // Показываем hero после загрузки первого изображения
+        const hero = document.querySelector('.hero');
+        const firstImg = slides[0];
+        
+        if (firstImg.complete) {
+            hero.classList.add('loaded');
+        } else {
+            firstImg.onload = () => hero.classList.add('loaded');
+        }
+
+        // Переключение слайдов
+        function nextSlide() {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % totalSlides;
+            slides[currentIndex].classList.add('active');
+        }
+
+        setInterval(nextSlide, 3500); // Смена картинки каждые 3,5 секунды
+
+
+        // ========== КАРУСЕЛЬ МОДЕЛЕЙ ==========
+        const track = document.getElementById('modelsTrack');
+        const prevBtn = document.getElementById('modelsPrevBtn');
+        const nextBtn = document.getElementById('modelsNextBtn');
+        
+        if (track && prevBtn && nextBtn) {
+            const CARD_WIDTH = 390;
+            
+            function scrollOneCard(direction) {
+                const currentScroll = track.scrollLeft;
+                let newScroll;
+                
+                if (direction === 'next') {
+                    newScroll = currentScroll + CARD_WIDTH;
+                    if (newScroll + track.clientWidth > track.scrollWidth) {
+                        newScroll = track.scrollWidth - track.clientWidth;
+                    }
+                } else {
+                    newScroll = currentScroll - CARD_WIDTH;
+                    if (newScroll < 0) {
+                        newScroll = 0;
+                    }
+                }
+                
+                track.scrollTo({ left: newScroll, behavior: 'smooth' });
+            }
+            
+            prevBtn.addEventListener('click', () => scrollOneCard('prev'));
+            nextBtn.addEventListener('click', () => scrollOneCard('next'));
+        }
+    });
+</script>
+@endpush

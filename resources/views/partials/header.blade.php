@@ -15,33 +15,53 @@
             <div class="header__center">
                 <nav class="nav">
                     <ul class="nav__list">
-                        <li class="nav__item"><a href="{{ route('home') }}" class="nav__link">Главная</a></li>
+                        <li class="nav__item"><a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="nav__link">{{ __('messages.home') }}</a></li>
                         <li class="nav__item nav__item--dropdown">
-                            <a href="#" class="nav__link">Модели ▾</a>
+                            <a href="#" class="nav__link">{{ __('messages.models') }} ▾</a>
                             <ul class="subnav">
-                                <li class="subnav__item"><a href="{{ route('models.category', 'sedan') }}" class="subnav__link">Седаны</a></li>
-                                <li class="subnav__item"><a href="{{ route('models.category', 'coupe') }}" class="subnav__link">Купе</a></li>
-                                <li class="subnav__item"><a href="{{ route('models.category', 'suv') }}" class="subnav__link">Кроссоверы и внедорожники</a></li>
-                                <li class="subnav__item"><a href="{{ route('models.category', 'sport') }}" class="subnav__link">Спортивные модели</a></li>
-                                <li class="subnav__item"><a href="{{ route('models.category', 'electric') }}" class="subnav__link">Электромобили</a></li>
+                                <li class="subnav__item"><a href="{{ route('models.category', ['category' => 'sedan', 'locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.sedans') }}</a></li>
+                                <li class="subnav__item"><a href="{{ route('models.category', ['category' => 'coupe', 'locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.coupe') }}</a></li>
+                                <li class="subnav__item"><a href="{{ route('models.category', ['category' => 'suv', 'locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.suv_crossovers') }}</a></li>
+                                <li class="subnav__item"><a href="{{ route('models.category', ['category' => 'sport', 'locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.sport_models') }}</a></li>
+                                <li class="subnav__item"><a href="{{ route('models.category', ['category' => 'electric', 'locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.electric_models') }}</a></li>
                             </ul>
                         </li>
-                        <li class="nav__item"><a href="{{ route('news') }}" class="nav__link">Новости</a></li>
+                        <li class="nav__item"><a href="{{ route('news', ['locale' => app()->getLocale()]) }}" class="nav__link">{{ __('messages.news') }}</a></li>
                         <li class="nav__item nav__item--dropdown">
-                            <a href="#" class="nav__link">О нас ▾</a>
+                            <a href="#" class="nav__link">{{ __('messages.about_us') }} ▾</a>
                             <ul class="subnav">
-                                <li class="subnav__item"><a href="{{ route('about') }}" class="subnav__link">Об автосалоне</a></li>
-                                <li class="subnav__item"><a href="{{ route('brand.history') }}" class="subnav__link">История марки Audi</a></li>
+                                <li class="subnav__item"><a href="{{ route('about', ['locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.about') }}</a></li>
+                                <li class="subnav__item"><a href="{{ route('brand.history', ['locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.history') }}</a></li>
                             </ul>
                         </li>
-                        <li class="nav__item"><a href="{{ route('contacts') }}" class="nav__link">Контакты</a></li>
+                        <li class="nav__item"><a href="{{ route('contacts', ['locale' => app()->getLocale()]) }}" class="nav__link">{{ __('messages.contacts') }}</a></li>
                     </ul>
                 </nav>
             </div>
             
             <!-- Правая часть: кнопка -->
             <div class="header__right">
-                <a href="{{ route('testdrive.create') }}" class="nav__link nav__link--highlight">Тест-драйв</a>
+                <a href="{{ route('testdrive.create', ['locale' => app()->getLocale()]) }}" class="nav__link nav__link--highlight">{{ __('messages.testdrive') }}</a>
+
+                @php
+                    $currentRoute = Route::currentRouteName();
+                    $currentParams = Route::current()->parameters();
+                    
+                    if ($currentRoute === 'models.category') {
+                        $ruUrl = route('models.category', ['category' => $currentParams['category'], 'locale' => 'ru']);
+                        $enUrl = route('models.category', ['category' => $currentParams['category'], 'locale' => 'en']);
+                    } else {
+                        unset($currentParams['locale']);
+                        $ruUrl = route($currentRoute, array_merge($currentParams, ['locale' => 'ru']));
+                        $enUrl = route($currentRoute, array_merge($currentParams, ['locale' => 'en']));
+                    }
+                @endphp
+
+                <div class="language-switcher">
+                    <a href="{{ $ruUrl }}" class="{{ app()->getLocale() == 'ru' ? 'active' : '' }}">RU</a>
+                    <span>/</span>
+                    <a href="{{ $enUrl }}" class="{{ app()->getLocale() == 'en' ? 'active' : '' }}">EN</a>
+                </div>
             </div>
         </div>
     </div>
