@@ -14,13 +14,19 @@ class Car extends Model
         'description_ru',
         'description_en',
         'engine',
+        'engine_ru',
+        'engine_en',
         'horsepower',
         'acceleration',
         'fuel_consumption',
         'transmission',
+        'transmission_ru',
+        'transmission_en',
         'drive',
+        'drive_ru',
+        'drive_en',
         'price',
-        'main_image'
+        'main_image',
     ];
     
     // Связь: машина принадлежит категории
@@ -49,6 +55,27 @@ class Car extends Model
         $locale = app()->getLocale();
         $field = 'description_' . $locale;
         return $this->$field;
+    }
+
+    public function getEngineAttribute()
+    {
+        $locale = app()->getLocale();
+        $field = 'engine_' . $locale;
+        return $this->$field ?? $this->engine_ru;
+    }
+
+    public function getTransmissionAttribute()
+    {
+        $locale = app()->getLocale();
+        $field = 'transmission_' . $locale;
+        return $this->$field ?? $this->transmission_ru;
+    }
+
+    public function getDriveAttribute()
+    {
+        $locale = app()->getLocale();
+        $field = 'drive_' . $locale;
+        return $this->$field ?? $this->drive_ru;
     }
     
     // Цена с пробелами (для отображения)

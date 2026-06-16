@@ -27,7 +27,7 @@ Route::group(['prefix' => '{locale?}', 'where' => ['locale' => 'en|ru']], functi
     Route::get('/testdrive', [PageController::class, 'testdriveCreate'])->name('testdrive.create');
     Route::post('/testdrive', [TestDriveController::class, 'store'])->name('testdrive.store');
     Route::get('/sitemap', [PageController::class, 'sitemap'])->name('sitemap');
-    
+    Route::get('/cars/{car}', [PageController::class, 'carShow'])->name('car.show');
 });
 
 Route::get('/models/{category}/{locale?}', [PageController::class, 'modelsCategory'])

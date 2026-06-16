@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1 class="section-title">Об автосалоне Audi Drive</h1>
+    <h1 class="section-title">{{ __('messages.about_company') }}</h1>
     <p>Страница в разработке</p>
 </div>
 @endsection

@@ -55,6 +55,13 @@ class PageController extends Controller
         return view('pages.models-category', compact('categoryModel', 'cars'));
     }
 
+    public function carShow($locale, Car $car)
+    {
+        $car->load('images');
+        
+        return view('pages.car-show', compact('car'));
+    }
+
     public function newsShow($slug)
     {
         $news = News::where('slug', $slug)->firstOrFail();

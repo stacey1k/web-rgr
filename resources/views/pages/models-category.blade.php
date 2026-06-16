@@ -20,7 +20,7 @@
                 <h3>Audi {{ $car->model }}</h3>
                 <p>{{ $car->short_description }}</p>
                 <p class="model-card__price">{{ $car->formatted_price }}</p>
-                <a href="#" class="btn btn--small">Подробнее</a>
+                <a href="{{ route('car.show', ['car' => $car, 'locale' => app()->getLocale()]) }}" class="btn btn--small">{{ __('messages.more_details') }}</a>
             </div>
         </div>
         @endforeach

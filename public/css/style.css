@@ -644,6 +644,108 @@ body {
     right: -20px;
 }
 
+/* Страница детального просмотра автомобиля */
+.car-detail {
+    padding: 20px 0;
+}
+
+.car-detail__header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.car-detail__category {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.car-detail__image {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.car-detail__image img {
+    max-width: 100%;
+    border-radius: 12px;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.car-detail__description {
+    margin-bottom: 30px;
+}
+
+.car-detail__description h2 {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.car-detail__description p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.car-detail__specs {
+    margin-bottom: 30px;
+}
+
+.car-detail__specs h2 {
+    color: var(--white);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.car-detail__specs ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 30px;
+}
+
+.car-detail__specs ul li {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.car-detail__specs ul li .price {
+    color: var(--accent-red);
+    font-weight: 700;
+}
+
+.car-detail__actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.car-detail__gallery {
+    margin-top: 30px;
+}
+
+.car-detail__gallery h3 {
+    color: var(--white);
+    margin-bottom: 15px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 /* ========================================
    КАРТОЧКИ НОВОСТЕЙ
    ======================================== */

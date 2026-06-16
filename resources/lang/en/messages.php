@@ -6,7 +6,9 @@ return [
     'news' => 'News',
     'about_us' => 'About us',
     'history' => 'Brand History',
+    'audi_history' => 'Audi brand history',
     'about' => 'About',
+    'about_company' => 'About the Audi Drive car dealership',
     'contacts' => 'Contacts',
     'testdrive' => 'Test Drive',
     'testdrive_signUp' => 'Test Drive',
@@ -38,6 +40,23 @@ return [
 
     'read_more' => 'Read more',
     'back_to_news' => 'Back to news',
+    'more_details' => 'More details',
+
+    'description' => 'Description',
+    'specifications' => 'Specifications',
+    'engine' => 'Engine',
+    'horsepower' => 'Horsepower',
+    'acceleration' => 'Acceleration 0–100 km/h',
+    'fuel_consumption' => 'Fuel consumption',
+    'hp' => 'hp',
+    'sec' => 'sec',
+    'l_per_100km' => 'l/100 km',
+    'transmission' => 'Transmission',
+    'drive' => 'Drive',
+    'price' => 'Price',
+    'buy' => 'Buy',
+    'gallery' => 'Gallery',
+    'photo' => 'Photo',
 
     // Footer
     'copyright' => '© :year Audi Drive. All rights reserved.',

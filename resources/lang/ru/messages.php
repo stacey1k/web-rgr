@@ -6,7 +6,9 @@ return [
     'news' => 'Новости',
     'about_us' => 'О нас',
     'history' => 'История марки',
+    'audi_history' => 'История марки Audi',
     'about' => 'О компании',
+    'about_company' => 'Об автосалоне Audi Drive',
     'contacts' => 'Контакты',
     'testdrive' => 'Тест-драйв',
     'testdrive_signUp' => 'Запись на тест-драйв',
@@ -38,6 +40,23 @@ return [
 
     'read_more' => 'Читать далее',
     'back_to_news' => 'Назад к новостям',
+    'more_details' => 'Подробнее',
+
+    'description' => 'Описание',
+    'specifications' => 'Характеристики',
+    'engine' => 'Двигатель',
+    'horsepower' => 'Мощность',
+    'acceleration' => 'Разгон 0–100 км/ч',
+    'fuel_consumption' => 'Расход топлива',
+    'hp' => 'л.с.',
+    'sec' => 'сек',
+    'l_per_100km' => 'л/100 км',
+    'transmission' => 'Коробка передач',
+    'drive' => 'Привод',
+    'price' => 'Цена',
+    'buy' => 'Купить',
+    'gallery' => 'Фотографии',
+    'photo' => 'Фото',
 
     // Подвал
     'copyright' => '© :year Audi Drive. Все права защищены.',
