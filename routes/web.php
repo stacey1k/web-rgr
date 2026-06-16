@@ -2,8 +2,18 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\TestDriveController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
+
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/login', 'showLogin')->name('login');
+    Route::post('/login', 'login');
+    Route::get('/register', 'showRegister')->name('register');
+    Route::post('/register', 'register');
+    Route::post('/logout', 'logout')->name('logout');
+});
 
 Route::group(['prefix' => '{locale?}', 'where' => ['locale' => 'en|ru']], function () {
     
@@ -24,7 +34,7 @@ Route::get('/models/{category}/{locale?}', [PageController::class, 'modelsCatego
     ->where('locale', 'en|ru')
     ->name('models.category');
 
-// Раздел администратора (защищён авторизацией)
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
-    // ... позже добавим
+// Раздел администратора (защищен авторизацией)
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 });

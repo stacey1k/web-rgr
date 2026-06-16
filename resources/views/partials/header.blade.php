@@ -62,6 +62,22 @@
                     <span>/</span>
                     <a href="{{ $enUrl }}" class="{{ app()->getLocale() == 'en' ? 'active' : '' }}">EN</a>
                 </div>
+
+                @auth
+                    <div class="user-menu">
+                        <span class="user-name">{{ auth()->user()->name }}</span>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="logout-btn">Выйти</button>
+                        </form>
+                        @if(auth()->user()->is_admin)
+                            <a href="{{ route('admin.dashboard') }}" class="admin-link">Админка</a>
+                        @endif
+                    </div>
+                @else
+                    <a href="{{ route('login') }}" class="auth-link">Вход</a>
+                    <a href="{{ route('register') }}" class="auth-link">Регистрация</a>
+                @endauth
             </div>
         </div>
     </div>
