@@ -19,7 +19,7 @@
         <div class="hero__content">
             <h1 class="hero__title">{{ __('messages.hero_title') }}</h1>
             <p class="hero__subtitle">{{ __('messages.hero_subtitle') }}</p>
-            <a href="{{ route('testdrive.create') }}" class="btn btn--primary">{{ __('messages.testdrive_signUp') }}</a>
+            <a href="{{ route('testdrive.create', ['locale' => app()->getLocale()]) }}" class="btn btn--primary">{{ __('messages.testdrive_signUp') }}</a>
         </div>
     </div>
 </section>

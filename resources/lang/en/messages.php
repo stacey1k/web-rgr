@@ -58,6 +58,32 @@ return [
     'gallery' => 'Gallery',
     'photo' => 'Photo',
 
+    'purchase_car_description' => 'Leave a request and we will contact you to complete the purchase.',
+    'fio' => 'Full name',
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'password' => 'Password',
+    'confirm_password' => 'Confirm Password',
+    'name' => 'Name',
+    'comment' => 'Comment',
+    'send_request' => 'Send request',
+    'cancel' => 'Cancel',
+    'no_account' => "Don't have an account?",
+    'already_registered' => 'Already registered?',
+    'purchase_request_sent' => 'Your purchase request has been sent. We will contact you shortly.',
+
+    'testdrive_description' => 'Fill out the form and we will contact you to schedule a test drive.',
+    'car' => 'Car',
+    'select_car' => 'Select a car',
+    'preferred_date' => 'Preferred date',
+    'preferred_time' => 'Preferred time',
+    'testdrive_request_sent' => 'Your test drive request has been sent. We will contact you shortly.',
+
+    'login' => 'Login',
+    'register' => 'Register',
+    'logout' => 'Logout',
+    'admin_panel' => 'Admin Panel',
+
     // Footer
     'copyright' => '© :year Audi Drive. All rights reserved.',
     'sitemap' => 'Sitemap',

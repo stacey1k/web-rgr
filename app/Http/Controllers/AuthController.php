@@ -10,13 +10,13 @@ use App\Models\User;
 class AuthController extends Controller
 {
     // Показать форму входа
-    public function showLogin()
+    public function showLogin($locale = null)
     {
         return view('auth.login');
     }
 
     // Обработать вход
-    public function login(Request $request)
+    public function login(Request $request, $locale = null)
     {
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -25,7 +25,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/');  // после входа на главную
+            return redirect()->intended(route('home', ['locale' => app()->getLocale()]));
         }
 
         return back()->withErrors([
@@ -34,13 +34,13 @@ class AuthController extends Controller
     }
 
     // Показать форму регистрации
-    public function showRegister()
+    public function showRegister($locale = null)
     {
         return view('auth.register');
     }
 
     // Обработать регистрацию
-    public function register(Request $request)
+    public function register(Request $request, $locale = null)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -56,15 +56,15 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        return redirect('/');
+        return redirect()->route('home', ['locale' => app()->getLocale()]);
     }
 
     // Выход из системы
-    public function logout(Request $request)
+    public function logout(Request $request, $locale = null)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/');
+        return redirect()->route('home', ['locale' => app()->getLocale()]);
     }
 }

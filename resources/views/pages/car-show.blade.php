@@ -4,9 +4,21 @@
 
 @section('content')
 <div class="container">
+    <!-- @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif -->
+
     <div class="car-detail">
         <div class="car-detail__header">
-            <h1 class="section-title">Audi {{ $car->model }}</h1>
+            <h1 class="section-title no-animate">Audi {{ $car->model }}</h1>
             <div class="car-detail__category">{{ $car->category->name }}</div>
         </div>
 
@@ -35,7 +47,7 @@
 
             <div class="car-detail__actions">
                 <a href="{{ route('testdrive.create', ['locale' => app()->getLocale(), 'car' => $car->id]) }}" class="btn btn--primary">{{ __('messages.testdrive_signUp') }}</a>
-                <a href="#" class="btn btn--secondary">{{ __('messages.buy') }}</a>
+                <a href="{{ route('purchase.create', ['car' => $car->id, 'locale' => app()->getLocale()]) }}" class="btn btn--primary">{{ __('messages.buy') }}</a>
             </div>
 
             <!-- Галерея дополнительных изображений -->

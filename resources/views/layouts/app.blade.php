@@ -18,10 +18,33 @@
     @stack('scripts')
 </head>
 <body>
+    @if(session('success'))
+        <div class="alert-floating alert-success" id="flash-message">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert-floating alert-danger" id="flash-message">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="wrapper">
         @include('partials.header')
         
         <main class="main">
+            <!-- @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif -->
+
             @yield('content')
         </main>
         
@@ -29,5 +52,28 @@
     </div>
     
     @stack('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashMessage = document.getElementById('flash-message');
+            if (flashMessage) {
+                // Автоматически скрыть через 4 секунды
+                setTimeout(function() {
+                    flashMessage.classList.add('fade-out');
+                    // Удалить элемент из DOM после анимации
+                    setTimeout(function() {
+                        flashMessage.remove();
+                    }, 400);
+                }, 4000);
+
+                // Скрыть при клике
+                flashMessage.addEventListener('click', function() {
+                    flashMessage.classList.add('fade-out');
+                    setTimeout(function() {
+                        flashMessage.remove();
+                    }, 400);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

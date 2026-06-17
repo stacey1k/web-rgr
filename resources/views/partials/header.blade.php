@@ -66,17 +66,17 @@
                 @auth
                     <div class="user-menu">
                         <span class="user-name">{{ auth()->user()->name }}</span>
-                        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                        <form action="{{ route('logout', ['locale' => app()->getLocale()]) }}" method="POST" style="display: inline;">
                             @csrf
-                            <button type="submit" class="logout-btn">Выйти</button>
+                            <button type="submit" class="logout-btn">{{ __('messages.logout') }}</button>
                         </form>
                         @if(auth()->user()->is_admin)
-                            <a href="{{ route('admin.dashboard') }}" class="admin-link">Админка</a>
+                            <a href="{{ route('admin.dashboard', ['locale' => app()->getLocale()]) }}" class="admin-link">{{ __('messages.admin_panel') }}</a>
                         @endif
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="auth-link">Вход</a>
-                    <a href="{{ route('register') }}" class="auth-link">Регистрация</a>
+                    <a href="{{ route('login', ['locale' => app()->getLocale()]) }}" class="auth-link">{{ __('messages.login') }}</a>
+                    <a href="{{ route('register', ['locale' => app()->getLocale()]) }}" class="auth-link">{{ __('messages.register') }}</a>
                 @endauth
             </div>
         </div>
