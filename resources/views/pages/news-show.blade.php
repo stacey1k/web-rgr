@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <article class="news-article">
-        <h1 class="section-title">{{ $news->title }}</h1>
+        <h1 class="section-title no-animate">{{ $news->title }}</h1>
         
         <div class="news-meta">
             <span class="news-date">{{ $news->published_at->format('d.m.Y') }}</span>
@@ -18,7 +18,7 @@
         @endif
         
         <div class="news-content">
-            {!! nl2br(e($news->content)) !!}
+            {!! $news->content !!}
         </div>
         
         <div class="news-back">

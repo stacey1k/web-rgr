@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Car;
 use App\Models\News;
+use App\Models\Page;
 
 class PageController extends Controller
 {
@@ -32,19 +33,6 @@ class PageController extends Controller
         if ($locale && in_array($locale, ['en', 'ru'])) {
             app()->setLocale($locale);
         }
-
-    //     $categories = [
-    //     'sedan' => ['ru' => 'Седаны', 'en' => 'Sedans'],
-    //     'coupe' => ['ru' => 'Купе', 'en' => 'Coupe'],
-    //     'suv' => ['ru' => 'Кроссоверы и внедорожники', 'en' => 'SUVs & Crossovers'],
-    //     'sport' => ['ru' => 'Спортивные модели', 'en' => 'Sport models'],
-    //     'electric' => ['ru' => 'Электромобили', 'en' => 'Electric vehicles']
-    // ];
-    
-    // $currentLocale = app()->getLocale();
-    // $title = $categories[$category][$currentLocale] ?? 'Модельный ряд';
-        
-    //     return view('pages.models-category', compact('title', 'category'));
         
         // Ищем категорию по slug
         $categoryModel = Category::where('slug', $category)->firstOrFail();
@@ -62,25 +50,16 @@ class PageController extends Controller
         return view('pages.car-show', compact('car'));
     }
 
-    public function newsShow($slug)
+    public function newsShow($locale, $slug)
     {
         $news = News::where('slug', $slug)->firstOrFail();
         return view('pages.news-show', compact('news'));
     }
-    
-    public function about()
+
+    public function showPage($locale, $slug)
     {
-        return view('pages.about');
-    }
-    
-    public function brandHistory()
-    {
-        return view('pages.brand-history');
-    }
-    
-    public function contacts()
-    {
-        return view('pages.contacts');
+        $page = Page::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        return view('pages.page', compact('page'));
     }
     
     public function testdriveCreate()
@@ -88,10 +67,5 @@ class PageController extends Controller
         // Получаем все машины для выбора в форме
         $cars = Car::with('category')->get();
         return view('pages.testdrive', compact('cars'));
-    }
-    
-    public function sitemap()
-    {
-        return view('pages.sitemap');
     }
 }

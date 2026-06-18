@@ -11,14 +11,14 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next)
     {
-        // Берём первый сегмент URL (например, из /en/news берём 'en')
+        // Берем первый сегмент URL
         $locale = $request->segment(1);
         
         // Если это 'en' или 'ru' — устанавливаем язык
         if (in_array($locale, ['en', 'ru'])) {
             app()->setLocale($locale);
         } else {
-            // Если нет — язык русский по умолчанию
+            // Русский язык по умолчанию
             app()->setLocale('ru');
         }
         

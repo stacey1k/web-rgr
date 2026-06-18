@@ -14,7 +14,7 @@
             @endif
             <span class="news-date">{{ $item->published_at->format('d.m.Y') }}</span>
             <h3>{{ $item->title }}</h3>
-            <p>{{ Str::limit($item->content, 100) }}</p>
+            <p>{{ Str::limit(strip_tags($item->content), 80) }}</p>
             <a href="{{ route('news.show', ['locale' => app()->getLocale(), 'slug' => $item->slug]) }}" class="btn btn--secondary">{{ __('messages.read_more') }} →</a>
         </div>
         @endforeach
