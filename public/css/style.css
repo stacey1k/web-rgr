@@ -32,7 +32,6 @@
     
     /* Шрифты */
     --font-main: 'Inter', sans-serif;
-    --font-heading: 'Playfair Display', serif;
     --font-hero: 'Montserrat', sans-serif;
 }
 
@@ -644,6 +643,11 @@ body {
     right: -20px;
 }
 
+/* Утилитарные отступы */
+.mt-3 { margin-top: 15px; }
+.mt-4 { margin-top: 20px; }
+.mb-4 { margin-bottom: 20px; }
+
 /* Страница детального просмотра автомобиля */
 .car-detail {
     padding: 20px 0;
@@ -746,6 +750,124 @@ body {
     border-radius: 8px;
 }
 
+/* Формы на сайте */
+.purchase-form, .testdrive-form, .admin-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+.purchase-form .form-group, .testdrive-form .form-group, .admin-form .form-group {
+    margin-bottom: 15px;
+}
+
+.purchase-form label, .testdrive-form label, .admin-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.purchase-form .form-control, .testdrive-form .form-control, .admin-form .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: var(--bg-card-dark);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease;
+}
+
+.purchase-form .form-control:focus, .testdrive-form .form-control:focus, .admin-form .form-control:focus {
+    outline: none;
+    border-color: var(--accent-red);
+    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+}
+
+.purchase-form .error, .testdrive-form .error, .admin-form .error {
+    color: var(--accent-red);
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 4px;
+}
+
+.purchase-form textarea.form-control, .testdrive-form textarea.form-control, .admin-form textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.purchase-form .btn, .testdrive-form .btn, .admin-form .btn {
+    margin-right: 10px;
+    min-width: 150px;
+    text-align: center;
+}
+
+.purchase-form .text-center, .testdrive-form .text-center {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+/* Уведомления поверх контента */
+.alert-floating {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 600px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+    animation: slideDown 0.4s ease forwards;
+    pointer-events: auto;
+    cursor: pointer; /* чтобы можно было кликнуть для закрытия */
+}
+
+.alert-floating.alert-success {
+    background-color: rgba(22, 163, 74, 0.95);
+    border: 1px solid #16a34a;
+    color: #ffffff;
+}
+
+.alert-floating.alert-danger {
+    background-color: rgba(220, 38, 38, 0.95);
+    border: 1px solid #dc2626;
+    color: #ffffff;
+}
+
+/* Анимация появления */
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Анимация исчезновения */
+.alert-floating.fade-out {
+    animation: fadeOutUp 0.4s ease forwards;
+}
+
+@keyframes fadeOutUp {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+    }
+}
+
 /* ========================================
    КАРТОЧКИ НОВОСТЕЙ
    ======================================== */
@@ -815,14 +937,19 @@ body {
    КНОПКИ
    ======================================== */
 .btn {
-    display: inline-block;
+    display: inline-flex;
     padding: 12px 32px;
     border-radius: 40px;
     text-decoration: none;
     font-weight: 600;
+    font-family: var(--font-main);
+    font-size: 16px;
     transition: all 0.25s ease;
     cursor: pointer;
     border: none;
+    line-height: 1.5;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn--primary {
@@ -898,29 +1025,67 @@ body {
 
 .footer__inner {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    gap: 30px;
 }
 
-.footer__nav {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-}
-
-.footer__nav a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: var(--transition);
-}
-
-.footer__nav a:hover {
-    color: var(--accent-red);
+.footer__copyright-wrapper {
+    width: 100%;
+    text-align: center;
 }
 
 .footer__copyright {
     color: var(--text-dim);
     font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Карта сайта */
+.footer__sitemap-wrapper {
+    width: 100%;
+}
+
+.footer__sitemap {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 60px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.footer__sitemap-group h4 {
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.footer__sitemap-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer__sitemap-group ul li {
+    margin-bottom: 8px;
+}
+
+.footer__sitemap-group ul a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.footer__sitemap-group ul a:hover {
+    color: var(--accent-red);
+}
+
+/* Коррекция прокрутки к якорям */
+[id] {
+    scroll-margin-top: 96px;
 }
 
 /* ========================================
@@ -977,8 +1142,7 @@ body {
     list-style: none;
 }
 
-.pagination li a,
-.pagination li span {
+.pagination li a, .pagination li span {
     display: inline-block;
     padding: 8px 14px;
     background-color: var(--bg-card-dark);
@@ -1140,24 +1304,6 @@ body {
     text-decoration: underline;
 }
 
-/* .auth-form .mt-3 {
-    margin-top: 15px;
-} */
-
-/* Контакты в подвале
-.footer__col h4 {
-    color: var(--white);
-    margin-bottom: 15px;
-    font-size: 1rem;
-    letter-spacing: 1px;
-}
-
-.footer__col p {
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    margin-bottom: 8px;
-} */
-
 /* Пустое состояние */
 .text-center {
     text-align: center;
@@ -1167,4 +1313,301 @@ body {
     padding: 40px;
     color: var(--text-dim);
     font-size: 1.1rem;
+}
+
+/* ========================================
+   АДМИН-СТИЛИ
+   ======================================== */
+
+/* Простая сетка */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    /* margin: 0 -10px; компенсация паддингов колонок */
+    gap: 20px; /* отступ между колонками */
+}
+.row > [class*="col-"] {
+    padding: 0 10px;
+}
+.col-12 { flex: 0 0 100%; max-width: 100%; }
+.col-6 { flex: 0 0 50%; max-width: 50%; }
+.col-4 { flex: 0 0 33.3333%; max-width: 33.3333%; }
+.col-3 { flex: 0 0 25%; max-width: 25%; }
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+.col-md-4 {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+}
+
+/* Таблицы */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+.table th, .table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #333;
+    text-align: left;
+}
+.table th {
+    background-color: var(--bg-card-dark);
+    color: var(--white);
+    font-weight: 600;
+}
+.table-dark {
+    background-color: var(--bg-dark);
+}
+.table-striped tbody tr:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+.table-striped tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Уведомления (flash) */
+.alert {
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: center;
+}
+.alert-success {
+    background-color: rgba(22, 163, 74, 0.15);
+    border: 1px solid #16a34a;
+    color: #16a34a;
+}
+.alert-danger {
+    background-color: rgba(220, 38, 38, 0.15);
+    border: 1px solid #dc2626;
+    color: #dc2626;
+}
+
+/* Кнопки для админки */
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+.btn--danger {
+    background-color: var(--accent-red);
+    color: var(--white);
+    border: 2px solid var(--accent-red);
+}
+.btn--danger:hover {
+    background-color: var(--accent-red-hover);
+    border-color: var(--accent-red-hover);
+}
+.btn--secondary--adm {
+    background-color: transparent;
+    color: var(--accent-red);
+    border: 2px solid var(--accent-red);
+}
+.btn--secondary--adm:hover {
+    background-color: var(--accent-red);
+    color: var(--white);
+}
+
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.badge-new { background: #dc2626; color: white; }
+.badge-processed { background: #e67e22; color: white; }
+.badge-confirmed { background: #16a34a; color: white; }
+
+/* Маленький select для админки */
+.form-control-sm {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background: var(--bg-card-dark);
+    color: var(--text-primary);
+    height: 30px;
+    line-height: 1.5;
+}
+
+.form-control-sm:focus {
+    outline: none;
+    border-color: var(--accent-red);
+}
+
+/* ========================================
+   СТИЛИ ДЛЯ КОНТЕНТА СТРАНИЦ
+   ======================================== */
+
+.page-content {
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.page-content h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    margin: 30px 0 15px;
+    border-bottom: 2px solid var(--accent-red);
+    padding-bottom: 10px;
+}
+
+.page-content h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    margin: 25px 0 10px;
+}
+
+.page-content h4 {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 20px 0 8px;
+}
+
+.page-content p {
+    margin-bottom: 15px;
+    color: var(--text-secondary);
+}
+
+.page-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 20px;
+}
+
+.page-content ul li {
+    padding: 6px 0 6px 25px;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.page-content ul li::before {
+    content: "▸";
+    color: var(--accent-red);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Таблица контактов */
+.contacts-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 30px;
+    background: var(--bg-card-dark);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.contacts-table th,
+.contacts-table td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.contacts-table th {
+    background-color: var(--bg-dark);
+    color: var(--white);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+
+.contacts-table td {
+    color: var(--text-secondary);
+}
+
+.contacts-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Социальные ссылки */
+.social-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 25px;
+    flex-wrap: wrap;
+}
+
+.social-links li {
+    padding: 0 !important;
+}
+
+.social-links li::before {
+    display: none !important;
+}
+
+.social-links a {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: var(--bg-card-dark);
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 30px;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: var(--accent-red);
+    color: var(--white);
+    border-color: var(--accent-red);
+}
+
+/* FAQ */
+.faq-item {
+    margin: 20px 0;
+    padding: 15px 20px;
+    background: var(--bg-card-dark);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-red);
+}
+
+.faq-item h4 {
+    color: var(--white);
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+}
+
+.faq-item p {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Контейнер для карты */
+.map-container {
+    margin: 20px 0 30px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 450px;
+    border: 0;
+}
+
+/* Общие стили для текста в page-content */
+.page-content em {
+    color: var(--accent-red);
+    font-style: italic;
+}
+
+.page-content strong {
+    color: var(--white);
 }
