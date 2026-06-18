@@ -86,6 +86,10 @@ return [
 
     // Подвал
     'copyright' => '© :year Audi Drive. Все права защищены.',
-    'sitemap' => 'Карта сайта',
-    'map' => 'Схема проезда',
+    'company' => 'Компания',
+    'for_customers' => 'Покупателям',
+    'contact_us' => 'Связаться',
+    'contacts_map' => 'Схема проезда',
+    'contacts_faq' => 'Вопросы и ответы',
+    'contacts_social' => 'Социальные сети',
 ];

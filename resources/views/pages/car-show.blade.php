@@ -4,18 +4,6 @@
 
 @section('content')
 <div class="container">
-    <!-- @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif -->
-
     <div class="car-detail">
         <div class="car-detail__header">
             <h1 class="section-title no-animate">Audi {{ $car->model }}</h1>
@@ -29,7 +17,7 @@
 
             <div class="car-detail__description">
                 <h2>{{ __('messages.description') }}</h2>
-                <p>{{ $car->description }}</p>
+                <p>{!! $car->description !!}</p>
             </div>
 
             <div class="car-detail__specs">

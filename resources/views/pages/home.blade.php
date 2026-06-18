@@ -42,29 +42,6 @@
     <div class="slogan-decoration slogan-decoration--bottom"></div>
 </section>
 
-<!-- <section class="models-section">
-    <div class="container">
-        <h2 class="section-title">Популярные модели</h2>
-        <div class="models-grid">
-            <div class="model-card">
-                <img src="{{ asset('images/car_models/a6.jpg') }}" alt="Audi A6" class="model-card__img">
-                <h3>Audi A6</h3>
-                <p>Бизнес-седан премиум-класса</p>
-            </div>
-            <div class="model-card">
-                <img src="{{ asset('images/car_models/q5.jpg') }}" alt="Audi Q5" class="model-card__img">
-                <h3>Audi Q5</h3>
-                <p>Популярный кроссовер</p>
-            </div>
-            <div class="model-card">
-                <img src="{{ asset('images/car_models/e-tron.jpg') }}" alt="Audi e-tron" class="model-card__img">
-                <h3>Audi e-tron</h3>
-                <p>Электрический внедорожник</p>
-            </div>
-        </div>
-    </div>
-</section> -->
-
 <section class="models-section">
     <div class="container">
         <h2 class="section-title">{{ __('messages.popular_models') }}</h2>
@@ -95,26 +72,6 @@
 <section class="news-section">
     <div class="container">
         <h2 class="section-title">{{ __('messages.news_and_promotions') }}</h2>
-        <!-- <div class="news-grid">
-            @php
-                $sampleNews = [
-                    ['title' => __('messages.special_offers_q5'), 'date' => '15.03.2025'],
-                    ['title' => __('messages.new_a6_etron'), 'date' => '10.03.2025'],
-                    ['title' => __('messages.testdrive_weekend'), 'date' => '05.03.2025'],
-                ];
-            @endphp
-            @foreach($sampleNews as $item)
-            <div class="news-card">
-                <span class="news-date">{{ $item['date'] }}</span>
-                <h3>{{ $item['title'] }}</h3>
-            </div>
-            @endforeach
-        </div>
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="{{ route('news') }}" class="btn btn--secondary">{{ __('messages.all_news') }} →</a>
-        </div>
-    </div> -->
-
         <div class="news-grid">
             @foreach($latestNews as $item)
             <div class="news-card">
@@ -123,7 +80,7 @@
                 @endif
                 <span class="news-date">{{ $item->published_at->format('d.m.Y') }}</span>
                 <h3>{{ $item->title }}</h3>
-                <p>{{ Str::limit($item->content, 100) }}</p>
+                <p>{{ Str::limit(strip_tags($item->content), 80) }}</p>
                 <a href="{{ route('news.show', ['locale' => app()->getLocale(), 'slug' => $item->slug]) }}" class="btn btn--secondary">{{ __('messages.read_more') }} →</a>
             </div>
             @endforeach

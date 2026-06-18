@@ -86,6 +86,10 @@ return [
 
     // Footer
     'copyright' => '© :year Audi Drive. All rights reserved.',
-    'sitemap' => 'Sitemap',
-    'map' => 'Directions',
+    'company' => 'Company',
+    'for_customers' => 'For customers',
+    'contact_us' => 'Contact us',
+    'contacts_map' => 'Directions',
+    'contacts_faq' => 'FAQ',
+    'contacts_social' => 'Social media',
 ];

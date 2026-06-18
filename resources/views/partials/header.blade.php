@@ -30,11 +30,11 @@
                         <li class="nav__item nav__item--dropdown">
                             <a href="#" class="nav__link">{{ __('messages.about_us') }} ▾</a>
                             <ul class="subnav">
-                                <li class="subnav__item"><a href="{{ route('about', ['locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.about') }}</a></li>
-                                <li class="subnav__item"><a href="{{ route('brand.history', ['locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.history') }}</a></li>
+                                <li class="subnav__item"><a href="{{ route('page.show', ['slug' => 'about', 'locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.about') }}</a></li>
+                                <li class="subnav__item"><a href="{{ route('page.show', ['slug' => 'brand-history', 'locale' => app()->getLocale()]) }}" class="subnav__link">{{ __('messages.history') }}</a></li>
                             </ul>
                         </li>
-                        <li class="nav__item"><a href="{{ route('contacts', ['locale' => app()->getLocale()]) }}" class="nav__link">{{ __('messages.contacts') }}</a></li>
+                        <li class="nav__item"><a href="{{ route('page.show', ['slug' => 'contacts', 'locale' => app()->getLocale()]) }}" class="nav__link">{{ __('messages.contacts') }}</a></li>
                     </ul>
                 </nav>
             </div>

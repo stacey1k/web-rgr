@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             CarSeeder::class,
             NewsSeeder::class,
+            PageSeeder::class,
             // TestDriveRequestSeeder::class, // временно закомментировано
             // PurchaseRequestSeeder::class,  // временно закомментировано
         ]);
